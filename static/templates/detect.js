@@ -95,6 +95,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const dl_url = `${base_url}/download/${ver}`;
 
   const get_vassal = 'Get Vassal';
+  let deb_text = ''  
+  let deb_link = ''  
+  let deb_sty  = 'display:none'  
   let btn_text = get_vassal;
   let btn_link = '/download.html';
 
@@ -127,7 +130,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     else if (uach.platform === PLATFORM_LINUX) {
       specific_download = true;
-      btn_text = `${get_vassal} for ${uach.platform}`;
+      deb_text = `${get_vassal} (Debian package)`;
+      deb_link = `${dl_url}/vassal_${ver}-1_all.deb`;
+      deb_sty  = 'display:block'  
+      btn_text = `${get_vassal} (${uach.platform} generic)`;
       btn_link = `${dl_url}/VASSAL-${ver}-linux.tar.bz2`;
     }
   }
@@ -141,4 +147,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const btn = document.getElementById('download_btn');
   btn.textContent = btn_text;
   btn.href = btn_link;
+
+  const deb = document.getElementById('download_deb');
+  deb.textContent = deb_text;
+  deb.href        = deb_link;
+  deb.style       = deb_sty;  
 });
