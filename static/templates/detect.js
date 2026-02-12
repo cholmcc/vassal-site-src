@@ -98,6 +98,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   let deb_text = ''  
   let deb_link = ''  
   let deb_sty  = 'display:none'  
+  let rpm_text = ''  
+  let rpm_link = ''  
+  let rpm_sty  = 'display:none'  
+  let flp_text = ''  
+  let flp_link = ''  
+  let flp_sty  = 'display:none'  
   let btn_text = get_vassal;
   let btn_link = '/download.html';
 
@@ -133,6 +139,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       deb_text = `${get_vassal} (Debian package)`;
       deb_link = `${dl_url}/vassal_${ver}-1_all.deb`;
       deb_sty  = 'display:block'  
+      rpm_text = `${get_vassal} (RedHat package)`;
+      rpm_link = `${dl_url}/vassal-${ver}-1.noarch.rpm`;
+      rpm_sty  = 'display:block'  
+      flp_text = `${get_vassal} (FlatPak recipe)`;
+      flp_link = `${dl_url}/VASSAL-${ver}-flatpak.yaml`;
+      flp_sty  = 'display:block'  
       btn_text = `${get_vassal} (${uach.platform} generic)`;
       btn_link = `${dl_url}/VASSAL-${ver}-linux.tar.bz2`;
     }
@@ -152,4 +164,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   deb.textContent = deb_text;
   deb.href        = deb_link;
   deb.style       = deb_sty;  
+
+  const rpm = document.getElementById('download_rpm');
+  rpm.textContent = rpm_text;
+  rpm.href        = rpm_link;
+  rpm.style       = rpm_sty;  
+
+  const flp = document.getElementById('download_flp');
+  flp.textContent = flp_text;
+  flp.href        = flp_link;
+  flp.style       = flp_sty;  
 });
