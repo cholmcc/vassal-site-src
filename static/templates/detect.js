@@ -95,8 +95,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const dl_url = `${base_url}/download/${ver}`;
 
   const get_vassal = 'Get Vassal';
+
+  let lnx_sty  = 'none'
   let btn_text = get_vassal;
   let btn_link = '/download.html';
+  let btn_sty  = 'block'
 
   let specific_download = false;
 
@@ -105,30 +108,39 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (uach.architecture === ARCH_X86) {
         if (uach.bitness === BITS_64) {
           specific_download = true;
-          btn_text = `${get_vassal} for ${uach.platform} (64-bit x86)`;
-          btn_link = `${dl_url}/VASSAL-${ver}-windows-x86_64.exe`;
+          btn_text += ` for ${uach.platform} (64-bit x86)`;
+          btn_link =  `${dl_url}/VASSAL-${ver}-windows-x86_64.exe`;
         }
         else if (uach.bitness === BITS_32) {
           specific_download = true;
-          btn_text = `${get_vassal} for ${uach.platform} (32-bit x86)`;
-          btn_link = `${dl_url}/VASSAL-${ver}-windows-x86_32.exe`;
+          btn_text += ` for ${uach.platform} (32-bit x86)`;
+          btn_link =  `${dl_url}/VASSAL-${ver}-windows-x86_32.exe`;
         }
       }
       else if (uach.architecture === ARCH_ARM && uach.bitness === BITS_64) {
         specific_download = true;
-        btn_text = `${get_vassal} for ${uach.platform} (64-bit ARM)`;
-        btn_link = `${dl_url}/VASSAL-${ver}-windows-aarch64.exe`;
+        btn_text += ` for ${uach.platform} (64-bit ARM)`;
+        btn_link =  `${dl_url}/VASSAL-${ver}-windows-aarch64.exe`;
       }
     }
     else if (uach.platform === PLATFORM_MACOS && uach.bitness === BITS_64) {
       specific_download = true;
-      btn_text = `${get_vassal} for ${uach.platform}`;
-      btn_link = `${dl_url}/VASSAL-${ver}-macos-universal.dmg`;
+      btn_text += ` for ${uach.platform}`;
+      btn_link =  `${dl_url}/VASSAL-${ver}-macos-universal.dmg`;
     }
     else if (uach.platform === PLATFORM_LINUX) {
       specific_download = true;
-      btn_text = `${get_vassal} for ${uach.platform}`;
-      btn_link = `${dl_url}/VASSAL-${ver}-linux.tar.bz2`;
+      lnx_sty  =  'block';
+      btn_sty  =  'none';
+      btn_text += ` for ${uach.platform}`;  
+        
+      const gen = document.getElementById('linux-tar');
+      const deb = document.getElementById('linux-deb');
+      const rpm = document.getElementById('linux-rpm');
+        
+      deb.href = `${dl_url}/vassal_${ver}-1_all.deb`;
+      rpm.href = `${dl_url}/vassal-${ver}-1.noarch.deb`;
+      gen.href = `${dl_url}/VASSAL-${ver}-linux.tar.bz2`;
     }
   }
 
@@ -138,7 +150,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     alt_downloads.style.display = 'none';
   }
 
-  const btn = document.getElementById('download_btn');
-  btn.textContent = btn_text;
-  btn.href = btn_link;
+  const btn         = document.getElementById('download_btn');
+  btn.textContent   = btn_text;
+  btn.href          = btn_link;
+  btn.style.display = btn_sty;  
+
+  const lnx         = document.getElementById('linux');
+  lnx.style.display = lnx_sty;  
 });
